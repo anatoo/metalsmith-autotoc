@@ -1,0 +1,24 @@
+{
+  "name": "metalsmith-autotoc",
+  "version": "0.1.0-dev",
+  "description": "A metalsmith plugin to generate table of contents of a document.",
+  "repository": "git@github.com:anatoo/metalsmith-autotoc.git",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test"
+  },
+  "author": "Mitsunori KUBOTA <anatoo.jp@gmail.com> (http://anatoo.jp)",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^0.9.0",
+    "jsdom": "^2.0.0",
+    "slug": "^0.8.0"
+  },
+  "devDependencies": {
+    "metalsmith": "^1.0.1",
+    "assert-dir-equal": "^1.0.1",
+    "mocha": "^2.1.0",
+    "metalsmith-templates": "^0.6.0",
+    "eco": "^1.1.0-rc-3"
+  }
+}

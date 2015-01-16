@@ -1,0 +1,7 @@
+<ul>
+<% for tocItem in @toc: %>
+  <li><a href="#<%= tocItem.id %>"><%= tocItem.text %></a></li>
+<% end %>
+</ul>
+
+<%- @contents %>
