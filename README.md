@@ -10,6 +10,20 @@ This plugin generate table of contents object to document's metadata.
 $ npm install metalsmith-autotoc
 ```
 
+## Configuration
+
+### headerIdPrefix
+
+Default: ``
+
+This value will be added to generated header ids as a prefix.
+
+### selector
+
+Default: `'h2,h3,h4,h5,h6'`
+
+A list of header selectors to search. 
+
 ## Example
 
 Source file `src/index.html`:
@@ -19,27 +33,35 @@ Source file `src/index.html`:
 autotoc: true
 template: 'layout.eco'
 ---
-<h2>aaa</h2>
-
+<h2 id="aaa">aaa</h2>
 <p>paragraph</p>
 
-<h2>bbb</h2>
-
+<h3 id="bbb">bbb</h3>
 <p>paragraph</p>
 
-<h2>ccc</h2>
+<h3 id="ccc">ccc</h3>
+<p>paragraph</p>
 
+<h2 id="ddd">ddd</h2>
 <p>paragraph</p>
 ```
 
 Template file `templates/layout.eco`:
 
 ```eco
-<ul>
-<% for tocItem in @toc: %>
-  <li><a href="#<%= tocItem.id %>"><%= tocItem.text %></a></li>
+<% renderToc = (items) => %>
+<ol class="toc">
+  <% for item in items: %>
+  <li><a href="#<%= item.id %>"><%= item.text %></a>
+    <% if item.children.length > 0: %><%- renderToc(item.children) %><% end %>
+  </li>
+  <% end %>
+</ol>
 <% end %>
-</ul>
+
+<% if @toc: %>
+<%- renderToc(@toc) %>
+<% end %>
 
 <%- @contents %>
 ```
@@ -65,26 +87,27 @@ metalsmith(__dirname)
 Results file `dest/index.html`:
 
 ```
-<ul>
 
-  <li><a href="#aaa">aaa</a></li>
-
-  <li><a href="#bbb">bbb</a></li>
-
-  <li><a href="#ccc">ccc</a></li>
-
-</ul>
+<ol class="toc">
+  <li><a href="#aaa">aaa</a>
+    <ol class="toc">
+      <li><a href="#bbb">bbb</a></li>
+      <li><a href="#ccc">ccc</a></li>
+    </ol>
+  </li>
+  <li><a href="#ddd">ddd</a></li>
+</ol>
 
 <h2 id="aaa">aaa</h2>
-
 <p>paragraph</p>
 
-<h2 id="bbb">bbb</h2>
-
+<h3 id="bbb">bbb</h3>
 <p>paragraph</p>
 
-<h2 id="ccc">ccc</h2>
+<h3 id="ccc">ccc</h3>
+<p>paragraph</p>
 
+<h2 id="ddd">ddd</h2>
 <p>paragraph</p>
 ```
 

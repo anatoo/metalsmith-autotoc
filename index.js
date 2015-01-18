@@ -42,11 +42,12 @@ TocItem.prototype = {
 
 module.exports = function(options) {
   options = options || {};
-  options.selector = options.selector || 'h3, h4, h5';
+  options.selector = options.selector || 'h2, h3, h4, h5, h6';
+  options.headerIdPrefix = options.headerIdPrefix || '';
 
   function generateId(header) {
     if (!header.id) {
-      return slug(header.innerHTML);
+      return options.headerIdPrefix + slug(header.innerHTML);
     } else {
       return header.id;
     }

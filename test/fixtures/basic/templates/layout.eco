@@ -1,7 +1,15 @@
-<ul>
-<% for tocItem in @toc: %>
-  <li><a href="#<%= tocItem.id %>"><%= tocItem.text %></a></li>
+<% renderToc = (items) => %>
+<ol class="toc">
+  <% for item in items: %>
+  <li><a href="#<%= item.id %>"><%= item.text %></a>
+    <% if item.children.length > 0: %><%- renderToc(item.children) %><% end %>
+  </li>
+  <% end %>
+</ol>
 <% end %>
-</ul>
+
+<% if @toc: %>
+<%- renderToc(@toc) %>
+<% end %>
 
 <%- @contents %>
