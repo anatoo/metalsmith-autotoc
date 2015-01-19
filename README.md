@@ -33,16 +33,16 @@ Source file `src/index.html`:
 autotoc: true
 template: 'layout.eco'
 ---
-<h2 id="aaa">aaa</h2>
+<h2>aaa</h2>
 <p>paragraph</p>
 
-<h3 id="bbb">bbb</h3>
+<h3>bbb</h3>
 <p>paragraph</p>
 
-<h3 id="ccc">ccc</h3>
+<h3>ccc</h3>
 <p>paragraph</p>
 
-<h2 id="ddd">ddd</h2>
+<h2>ddd</h2>
 <p>paragraph</p>
 ```
 
