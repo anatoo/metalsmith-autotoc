@@ -40,18 +40,15 @@ TocItem.prototype = {
   }
 };
 
+/**
+ * @param {Function} [options.slug]
+ * @param {String} [options.selector]
+ */
 module.exports = function(options) {
   options = options || {};
-  options.selector = options.selector || 'h3, h4, h5';
-
-  function generateId(header) {
-    if (!header.id) {
-      return slug(header.innerHTML);
-    } else {
-      return header.id;
-    }
-  }
-
+  options.selector = options.selector || 'h2, h3, h4, h5';
+  options.slug = options.slug || slug;
+  
   function getRootLevel(headers) {
     return headers.map(function(header) {
       return header.level;
@@ -127,7 +124,9 @@ module.exports = function(options) {
             var headers = Array.prototype.slice.call(
               window.document.querySelectorAll(file.autotocSelector || options.selector || 'h3, h4')
             ).map(function(header) {
-              header.id = generateId(header);
+              if (!header.id) {
+                header.id = options.slug(header.innerHTML);
+              }
               return header;
             });
 
