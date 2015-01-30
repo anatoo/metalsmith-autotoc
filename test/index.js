@@ -10,7 +10,6 @@ describe('metalsmith-autotoc', function() {
       .use(autotoc({
         selector: 'h2, h3, h4, h5',
         headerIdPrefix: 'foo-'
-        
       }))
       .use(templates({
         engine: 'eco',
