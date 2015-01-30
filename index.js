@@ -49,7 +49,10 @@ module.exports = function(options) {
   options = options || {};
   options.selector = options.selector || 'h2, h3, h4, h5, h6';
   options.headerIdPrefix = options.headerIdPrefix || '';
-  options.slug = options.slug || function(innerHTML) {
+  options.slug = options.slug || function(innerHTML, originalId) {
+    if (originalId) {
+      return originalId;
+    }
     return options.headerIdPrefix + slug(innerHTML);
   };
 
@@ -128,9 +131,7 @@ module.exports = function(options) {
             var headers = Array.prototype.slice.call(
               window.document.querySelectorAll(file.autotocSelector || options.selector || 'h3, h4')
             ).map(function(header) {
-              if (!header.id) {
-                header.id = options.slug(header.innerHTML);
-              }
+              header.id = options.slug(header.innerHTML, header.id);
               return header;
             });
 
