@@ -7,7 +7,11 @@ var autotoc = require('..');
 describe('metalsmith-autotoc', function() {
   it('should generate table of contents', function(done) {
     metalsmith(__dirname + '/fixtures/basic')
-      .use(autotoc({selector: 'h2'}))
+      .use(autotoc({
+        selector: 'h2, h3, h4, h5',
+        headerIdPrefix: 'foo-'
+        
+      }))
       .use(templates({
         engine: 'eco',
         directory: './templates'

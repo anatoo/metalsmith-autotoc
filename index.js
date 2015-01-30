@@ -43,12 +43,16 @@ TocItem.prototype = {
 /**
  * @param {Function} [options.slug]
  * @param {String} [options.selector]
+ * @param {String} [options.headerIdPrefix]
  */
 module.exports = function(options) {
   options = options || {};
-  options.selector = options.selector || 'h2, h3, h4, h5';
-  options.slug = options.slug || slug;
-  
+  options.selector = options.selector || 'h2, h3, h4, h5, h6';
+  options.headerIdPrefix = options.headerIdPrefix || '';
+  options.slug = options.slug || function(innerHTML) {
+    return options.headerIdPrefix + slug(innerHTML);
+  };
+
   function getRootLevel(headers) {
     return headers.map(function(header) {
       return header.level;
