@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-autotoc",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A metalsmith plugin to generate table of contents of a document.",
   "repository": "git@github.com:anatoo/metalsmith-autotoc.git",
   "main": "index.js",
