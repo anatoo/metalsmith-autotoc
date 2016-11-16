@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
-    "jsdom": "^2.0.0",
+    "jsdom": "^7.0.2",
     "slug": "^0.8.0"
   },
   "devDependencies": {
