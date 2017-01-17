@@ -73,7 +73,7 @@ module.exports = function(options) {
     headers = headers.map(function(header) {
       return {
         id: header.id,
-        text: header.innerHTML,
+        text: header.textContent,
         level: parseInt(header.tagName.match(/^h([123456])$/i)[1], 10)
       };
     });
@@ -131,7 +131,7 @@ module.exports = function(options) {
             var headers = Array.prototype.slice.call(
               window.document.querySelectorAll(file.autotocSelector || options.selector || 'h3, h4')
             ).map(function(header) {
-              header.id = options.slug(header.innerHTML, header.id);
+              header.id = options.slug(header.textContent, header.id);
               return header;
             });
 
