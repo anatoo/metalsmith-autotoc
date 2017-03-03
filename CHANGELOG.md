@@ -1,6 +1,12 @@
 CHANGELOG
 ====
 
+v0.1.4
+----
+
+ * [h1 can now be the root of the table of contents](github.com/anatoo/metalsmith-autotoc/pull/5).
+ * [Properly handle escaped HTML characters in heading text](https://github.com/anatoo/metalsmith-autotoc/pull/4).
+
 v0.1.3
 ----
 
