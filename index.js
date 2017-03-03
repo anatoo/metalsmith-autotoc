@@ -59,7 +59,7 @@ module.exports = function(options) {
   function getRootLevel(headers) {
     return headers.map(function(header) {
       return header.level;
-    }).sort()[0] - 1 || 1;
+    }).sort()[0] - 1;
   }
 
   function buildTocItems(headers) {
