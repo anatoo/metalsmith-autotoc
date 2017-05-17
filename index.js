@@ -1,6 +1,6 @@
 
-var jsdom = require('jsdom');
 var async = require('async');
+var cheerio = require('cheerio');
 var slug = require('slug');
 
 var TocItem = function() {
@@ -63,20 +63,12 @@ module.exports = function(options) {
   }
 
   function buildTocItems(headers) {
-    if (headers.length == 0) {
+    if (headers.length === 0) {
       return [];
     }
 
     var root = new TocItem();
     var toc = root;
-
-    headers = headers.map(function(header) {
-      return {
-        id: header.id,
-        text: header.textContent,
-        level: parseInt(header.tagName.match(/^h([123456])$/i)[1], 10)
-      };
-    });
 
     var lastLevel = getRootLevel(headers);
 
@@ -112,34 +104,23 @@ module.exports = function(options) {
 
   return function(files, metalsmith, done) {
     var fileList = Object.keys(files).map(function(path) {
-      return files[path]
+      return files[path];
     });
 
     async.each(fileList, function(file, done) {
       if (!file.autotoc) {
         done();
       } else {
-        var contents = file.contents.toString('utf8');
-        jsdom.env({
-          html: '<html><body>' + contents + '</body></html>',
-          feature: {QuerySelector: true},
-          done: function(error, window) {
-            if (error) {
-              throw error;
-            }
-
-            var headers = Array.prototype.slice.call(
-              window.document.querySelectorAll(file.autotocSelector || options.selector || 'h3, h4')
-            ).map(function(header) {
-              header.id = options.slug(header.textContent, header.id);
-              return header;
-            });
-
-            file.contents = new Buffer(window.document.body.innerHTML);
-            file.toc = buildTocItems(headers);
-            done();
-          }
+        var $ = cheerio.load(file.contents.toString('utf8'));
+        var headers = [];
+        $([file.autotocSelector, options.selector, 'h3, h4'].filter(function(n){ return n !== undefined; }).join(', ')).each(function(){
+            headers.push(
+                { id: options.slug($(this).text(), $(this).id),
+                  text: $(this).text(),
+                  level: parseInt($(this).prop("tagName").match(/^h([123456])$/i)[1], 10)});
         });
+        file.toc = buildTocItems(headers);
+        done();
       }
     }, function() {
       done();
