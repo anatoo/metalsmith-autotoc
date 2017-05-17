@@ -1,8 +1,8 @@
 
 var async = require('async');
 var cheerio = require('cheerio');
+var entities = require('entities');
 var slug = require('slug');
-var StringDecoder = require('string_decoder').StringDecoder;
 
 var TocItem = function() {
   TocItem.prototype.init.apply(this, arguments);
@@ -112,14 +112,14 @@ module.exports = function(options) {
       if (!file.autotoc) {
         done();
       } else {
-        var $ = cheerio.load(file.contents.toString('utf8'), { decodeEntities: false });
+        var $ = cheerio.load(file.contents, { decodeEntities: false });
         var headers = [];
         $([file.autotocSelector, options.selector, 'h3, h4'].filter(function(n){ return n !== undefined; }).join(', ')).each(function(){
             var $this = $(this);
-            $this.attr('id', options.slug($this.html(), $this.attr('id')));
+            $this.attr('id', options.slug(entities.decode($this.text()), $this.attr('id')));
             headers.push(
                 { id: $this.attr('id'),
-                  text: $this.html(),
+                  text: entities.decode($this.text()),
                   level: parseInt($this.prop("tagName").match(/^h([123456])$/i)[1], 10)});
         });
         file.toc = buildTocItems(headers);
