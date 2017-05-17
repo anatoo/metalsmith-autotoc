@@ -123,7 +123,7 @@ module.exports = function(options) {
                   level: parseInt($this.prop("tagName").match(/^h([123456])$/i)[1], 10)});
         });
         file.toc = buildTocItems(headers);
-        file.contents = $.html();
+        file.contents = new Buffer($.html());
         done();
       }
     }, function() {
