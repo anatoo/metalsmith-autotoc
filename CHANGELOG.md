@@ -1,6 +1,11 @@
 CHANGELOG
 ====
 
+v0.1.5
+----
+
+ * [Swap from JSDOM to Cheerio for parsing](https://github.com/anatoo/metalsmith-autotoc/pull/6).
+
 v0.1.4
 ----
 
