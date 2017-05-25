@@ -11,7 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
-    "jsdom": "^7.0.2",
+    "cheerio": "^0.22.0",
+    "entities": "^1.1.1",
     "slug": "^0.8.0"
   },
   "devDependencies": {
