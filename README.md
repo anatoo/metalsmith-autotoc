@@ -1,3 +1,10 @@
+---
+📌 **Deprecation Notice**
+
+This repository is deprecated and no more work will be done on this. Please use [metalsmith/table-of-contents](https://github.com/metalsmith/table-of-contents).
+
+---
+
 # metalsmith-autotoc
 
 > A metalsmith plugin to generate table of contents of a document.
